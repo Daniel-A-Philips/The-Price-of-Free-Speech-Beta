@@ -1,3 +1,4 @@
+package Java;
 import java.io.*;
 import java.util.*;
 
@@ -11,7 +12,7 @@ public class Interaction {
     private boolean forSMVI;
     private Stock stock;
 
-    Interaction(String Ticker, int IntervalIndex, int MonthIndex, String Handle, boolean forSMVI) throws IOException {
+    public Interaction(String Ticker, int IntervalIndex, int MonthIndex, String Handle, boolean forSMVI) throws IOException {
         this.Ticker = Ticker;
         this.IntervalIndex = IntervalIndex;
         this.MonthIndex = MonthIndex;

@@ -83,13 +83,13 @@ def writeTotal():
     read_file = ""
     read_data = []
     for id in ID:
-        read_file = "User_Data//"
+        read_file = "Data//User_Data//"
         read_file += id[0]+".json"
         read_file = open(read_file,'r')
         for line in read_file:
             if "result_count" in line:
                 read_data.append(line)
-    write_file = "User_Data//Admin.json"
+    write_file = "Data//User_Data//Admin.json"
     write_file = open(write_file,'w')
     index = 0
     for line in read_data:
@@ -113,7 +113,7 @@ def main():
     getID()
     bearer_token = auth()
     for id in ID:
-        writeFileName = "User_Data//"
+        writeFileName = "Data//User_Data//"
         writeFileName += id[0]+".json"
         url = create_url(id[1])
         headers = create_headers(bearer_token)

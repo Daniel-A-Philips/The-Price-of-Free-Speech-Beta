@@ -1,3 +1,4 @@
+package Java;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -23,7 +24,7 @@ class gui {
 
         //Creating the Frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(1000, 400);
+        frame.setSize(500, 400);
         frame.setResizable(Resizable);
 
         //Creating the MenuBar and adding components

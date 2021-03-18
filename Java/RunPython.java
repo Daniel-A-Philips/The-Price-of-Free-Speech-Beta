@@ -1,3 +1,4 @@
+package Java;
 import java.io.*;
 import java.nio.charset.*;
 import java.util.*;
@@ -12,7 +13,7 @@ public class RunPython {
     }
 
     public static void Run(int index) {
-        String fileName = toRun[index];
+        String fileName = "Python//" + toRun[index];
         System.out.println("Running \"" + fileName + "\"");
         InputStream output = null;
         String text = "";

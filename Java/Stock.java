@@ -1,3 +1,4 @@
+package Java;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -69,7 +70,7 @@ public class Stock {
             writer.close();
             reader.close();
             urlConnection.disconnect();
-            RawData = parseData();
+            RawData = parseData(file.toPath().toString());
             DayData = getDayData();
             WeekData = GetWeekData();
             LatestOpeningPrice = getLatestOpenPrice();
@@ -78,7 +79,7 @@ public class Stock {
         catch(IOException E){
             System.out.println("Error in \"getHistory\"\n"+E);}
     }
-
+    /*
     public void getHistory(String slice){
         Interval += "min";
         Time_Series = "TIME_SERIES_" + Time_Series;
@@ -105,11 +106,11 @@ public class Stock {
         } 
         catch(IOException E){
             System.out.println("Error in \"getHistory(String slice)\"\n"+E);}
-    }
+    }*/
 
-    private ArrayList<String[]> parseData() throws IOException {
+    private ArrayList<String[]> parseData(String file) throws IOException {
         ArrayList<String[]> ParsedData = new ArrayList<String[]>();
-        BufferedReader reader = new BufferedReader(new FileReader("Data\\Data.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         while((line = reader.readLine()) != null){
             ParsedData.add(line.split(","));

@@ -79,6 +79,34 @@ public class Stock {
             System.out.println("Error in \"getHistory\"\n"+E);}
     }
 
+    public void getHistory(String slice){
+        Interval += "min";
+        Time_Series = "TIME_SERIES_" + Time_Series;
+        try{
+            URL url = new URL("https://www.alphavantage.co/query?function="+Time_Series+"&symbol="+Ticker+"&interval="+Interval+"&slice="+slice+"&apikey="+APIKey);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = url.openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            File file;
+            if(forSMVI) file = new File("Data//DIA_Data.csv");
+            else file = new File("Data//Data.csv");
+            FileWriter writer = new FileWriter(file,true);
+            String line;
+            while((line = reader.readLine()) != null) {
+                if(line.contains("time")) continue;
+                writer.write(line);
+            }
+            reader.close();
+            writer.close();
+            urlConnection.disconnect();
+            RawData.addAll(parseData());
+            DayData.addAll(getDayData());
+            WeekData.addAll(GetWeekData());
+        } 
+        catch(IOException E){
+            System.out.println("Error in \"getHistory(String slice)\"\n"+E);}
+    }
+
     private ArrayList<String[]> parseData() throws IOException {
         ArrayList<String[]> ParsedData = new ArrayList<String[]>();
         BufferedReader reader = new BufferedReader(new FileReader("Data\\Data.csv"));

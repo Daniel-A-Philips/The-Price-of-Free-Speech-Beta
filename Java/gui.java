@@ -15,7 +15,6 @@ class gui {
     private static JPanel panel = new JPanel();
     private static JMenuBar mb = new JMenuBar();
     private static JFrame frame = new JFrame("The Price of Free Speech");
-    private static String toPrint = "";
     private static boolean Resizable = true;
     private static Interaction interaction;
     private static Interaction DIA;
@@ -24,7 +23,7 @@ class gui {
 
         //Creating the Frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
+        frame.setSize(900, 400);
         frame.setResizable(Resizable);
 
         //Creating the MenuBar and adding components
@@ -54,7 +53,6 @@ class gui {
                     interaction.run();
                     DIA.run();
                     writeSMVI();
-                    ta.append("\n"+toPrint);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -73,7 +71,7 @@ class gui {
         }
         // Dropdown Menu selection
         panel.add(select);
-        ta = new JTextArea(toPrint);
+        ta = new JTextArea("");
 
         // Text Area at the Center
         //Adding Components to the frame.
@@ -146,7 +144,7 @@ class gui {
         IntervalDropdown = new JComboBox(Intervals);
     }
 
-    public static void WriteText(String Text){ toPrint += "\n"+Text;}
+    public static void WriteText(String Text){ ta.append("\n" + Text);}
 
     
     private static void writeSMVI(){

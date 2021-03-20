@@ -88,7 +88,6 @@ def main():
     global readFile
     global writeFile
     global output
-    global errors
     global invalid
     global ID
     handles = []
@@ -96,7 +95,6 @@ def main():
     readFile = 'Data//Handles.csv'
     writeFile = 'Data//Handles_ID.csv'
     index = 0
-    errors = 0
     invalid = []
     ID = []
     with open(readFile) as csvfile:

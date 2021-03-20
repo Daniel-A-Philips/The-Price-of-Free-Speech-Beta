@@ -16,7 +16,7 @@ class gui {
     private static JMenuBar mb = new JMenuBar();
     private static JFrame frame = new JFrame("The Price of Free Speech");
     private static boolean Resizable = true;
-    private static Interaction interaction;
+    private static Interaction STOCK;
     private static Interaction DIA;
 
     public static void main(String[] args) {
@@ -47,10 +47,10 @@ class gui {
                     int IntervalInt = IntervalDropdown.getSelectedIndex();
                     int SliceInt = SliceDropdown.getSelectedIndex();
                     String handles = ((JTextField)Text.get(2)).getText();
-                    interaction = new Interaction(ticker,IntervalInt,SliceInt,handles,false);
+                    STOCK = new Interaction(ticker,IntervalInt,SliceInt,handles,false);
                     DIA = new Interaction("DIA",IntervalInt,SliceInt,handles,true);
                     writeDate();
-                    interaction.run();
+                    STOCK.run();
                     DIA.run();
                     writeSMVI();
                 } catch (IOException ex) {
@@ -154,8 +154,8 @@ class gui {
             File file = new File("Data\\SMVI_Data.txt");
             FileWriter writer = new FileWriter(file);
             String[] varNames = new String[]{"va","na","vb","nb","T","t"};
-            double va = interaction.getVariation(interaction.getRawData());
-            double na= interaction.getNumberOfDataPoints();
+            double va = STOCK.getVariation(STOCK.getRawData());
+            double na= STOCK.getNumberOfDataPoints();
             double vb = DIA.getVariation(DIA.getRawData());
             double nb = DIA.getNumberOfDataPoints();
             double t = 31; //TODO: Get the time from the range

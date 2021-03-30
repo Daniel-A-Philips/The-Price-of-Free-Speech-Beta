@@ -151,7 +151,7 @@ class gui {
         try{
             RunPython.Run(0);
             RunPython.Run(1);
-            RunPython.Run(2);
+            //RunPython.Run(2);
             File file = new File("Data\\SMVI_Data.txt");
             FileWriter writer = new FileWriter(file);
             String[] varNames = new String[]{"va","na","vb","nb","T","t"};

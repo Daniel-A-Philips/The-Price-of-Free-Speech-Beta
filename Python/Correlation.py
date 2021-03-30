@@ -2,13 +2,10 @@
 import pandas as pd
   
 # Making data frame from the csv file
-readFile = ""
+readFile = "Data\\COR_DATA.csv"
 df = pd.read_csv(readFile)
+
   
 # Printing the first 10 rows of the data frame for visualization
-df[:10]
-output = df.corr(method ='kendall')
-forGivenStock = output[0][2]
-forBaseline = output[1][2]
-difference = forGivenStock - forBaseline
-print(forGivenStock)
+output = df.corr(method ='pearson')
+print(output)

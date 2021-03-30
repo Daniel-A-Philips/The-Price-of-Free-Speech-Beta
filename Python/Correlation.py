@@ -9,6 +9,6 @@ def histogram_intersection(a,b):
 
 Variance = pd.Series([.223,.324,.41,.51231])
 Tweets = pd.Series([2,32,70,43])
-print(Variance.corr(Tweets,method=histogram_intersection))
-print(Tweets.corr(Variance,method=histogram_intersection))
+print("Test Correlation:",Variance.corr(Tweets,method=histogram_intersection))
+
 

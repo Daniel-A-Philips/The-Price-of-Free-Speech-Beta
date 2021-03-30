@@ -151,6 +151,7 @@ class gui {
         try{
             RunPython.Run(0);
             RunPython.Run(1);
+            RunPython.Run(2);
             File file = new File("Data\\SMVI_Data.txt");
             FileWriter writer = new FileWriter(file);
             String[] varNames = new String[]{"va","na","vb","nb","T","t"};
@@ -167,7 +168,7 @@ class gui {
             }
             writer.close();
             RunPython.Run(2);
-            WriteText("SMVI: " + RunPython.getOutput(2));
+            WriteText("Social Media Volatility Index: " + RunPython.getOutput(2));
         }catch(Exception e){System.out.println("Error in \"writeSMVI\"\n"+e);}
     }
 

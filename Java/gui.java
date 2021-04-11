@@ -15,7 +15,6 @@ class gui {
     private static JPanel panel = new JPanel();
     private static JMenuBar mb = new JMenuBar();
     private static JFrame frame = new JFrame("The Price of Free Speech");
-    private static JFrame consent = new JFrame("Consent Page");
     private static boolean Resizable = true;
     private static Interaction STOCK;
     private static Interaction DIA;

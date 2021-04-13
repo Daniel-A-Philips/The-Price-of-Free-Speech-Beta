@@ -19,13 +19,10 @@ class gui {
     private static boolean Resizable = true;
     private static Interaction STOCK;
     private static Interaction DIA;
-    public static String absPath;
+    private static int timeRange;
+    public static String absPath = Paths.get("PathTest.java").toAbsolutePath().toString().substring(0,Paths.get("PathTest.java").toAbsolutePath().toString().lastIndexOf("/"))+"/Data/";
 
     public static void main(String[] args) {
-        //Getting the paths to write data to
-        Path p = Paths.get("PathTest.java");
-        p = p.toAbsolutePath();
-        absPath = p.toString().substring(0,p.toString().lastIndexOf("/"))+"/Data/";
         //Creating the Frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(900, 400);
@@ -86,13 +83,28 @@ class gui {
     }
 
     private static void writeDate(){
-        String input = SliceDropdown.getSelectedItem().toString();
+        String[] tempMonths = new String[]{"" ,"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        ArrayList<String> monthList = new ArrayList<String>(Arrays.asList(tempMonths));
+        String EndInput = SliceDropdown.getSelectedItem().toString();
+        String StartInput = EndInput; //TODO: Change once the range functionn has been implemented
+        Date currentDate = new Date();
+        int[] year = {Integer.parseInt(StartInput.split(" ")[1]),Integer.parseInt(EndInput.split(" ")[1])};
+        int[] months = {monthList.indexOf(StartInput.split(" ")[0]),monthList.indexOf(EndInput.split(" ")[0])};
+        Date startDate = new Date(year[0], months[0], 1);
+        YearMonth temp = YearMonth.of(year[1],months[1]);
+        int endDateDays = temp.lengthOfMonth();
+        Date endDate = new Date(year[1],months[1],endDateDays);
+        if(months[1] == currentDate.getMonth() && year[1] == currentDate.getYear()){
+            endDate = currentDate;
+        }
+        startDate = endDate;
+        getDaysInTimeRange(startDate, endDate);
         try{
             String dataPath = absPath + "Time.txt";
             FileWriter fileWriter = new FileWriter(dataPath, false); 
             PrintWriter printWriter = new PrintWriter(fileWriter, false);
             printWriter.flush();
-            fileWriter.write(input);
+            fileWriter.write(EndInput);
             fileWriter.close();
             printWriter.close();
         }catch(Exception e){System.err.println(e);}
@@ -164,7 +176,10 @@ class gui {
             double na= STOCK.getNumberOfDataPoints();
             double vb = DIA.getVariation(DIA.getRawData());
             double nb = DIA.getNumberOfDataPoints();
-            double t = 31; //TODO: Get the time from the range
+            double t = timeRange; //TODO: Get the time from the range
+            if(t < 31){
+                t = 31;
+            }
             double T = Double.parseDouble(RunPython.getOutput(1));
             double[] var = new double[]{va,na,vb,nb,t,T};
             System.out.println("Writing");
@@ -175,6 +190,13 @@ class gui {
             RunPython.Run(2);
             WriteText("Social Media Volatility Index: " + RunPython.getOutput(2));
         }catch(Exception e){System.out.println("Error in \"writeSMVI\"\n"+ e + "\n" + "Error on line number " + e.getStackTrace()[0].getLineNumber());}
+    }
+
+    private static void getDaysInTimeRange(Date Start, Date End){
+        long startDateTime = Start.getTime();
+        long endDateTime = End.getTime();
+        long milPerDay = 1000*60*60*24; 
+        timeRange = (int) ((endDateTime - startDateTime) / milPerDay);
     }
 
 }

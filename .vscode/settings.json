@@ -6,5 +6,5 @@
     ],
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
-    "python.pythonPath": "C:\\Users\\daplo\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
+    "python.pythonPath": "/bin/python3"
 }

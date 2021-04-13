@@ -5,6 +5,7 @@ import java.util.*;
 import java.io.*;
 import java.time.*;
 import java.awt.event.*;
+import java.nio.file.*;
 
 class gui {
     private static ArrayList<JLabel> Labels = new ArrayList<>();
@@ -18,9 +19,13 @@ class gui {
     private static boolean Resizable = true;
     private static Interaction STOCK;
     private static Interaction DIA;
+    public static String absPath;
 
     public static void main(String[] args) {
-
+        //Getting the paths to write data to
+        Path p = Paths.get("PathTest.java");
+        p = p.toAbsolutePath();
+        absPath = p.toString().substring(0,p.toString().lastIndexOf("/"))+"/Data/";
         //Creating the Frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(900, 400);
@@ -83,7 +88,8 @@ class gui {
     private static void writeDate(){
         String input = SliceDropdown.getSelectedItem().toString();
         try{
-            FileWriter fileWriter = new FileWriter("Data\\Time.txt", false); 
+            String dataPath = absPath + "Time.txt";
+            FileWriter fileWriter = new FileWriter(dataPath, false); 
             PrintWriter printWriter = new PrintWriter(fileWriter, false);
             printWriter.flush();
             fileWriter.write(input);
@@ -151,7 +157,7 @@ class gui {
             RunPython.Run(0);
             RunPython.Run(1);
             //RunPython.Run(2);
-            File file = new File("Data\\SMVI_Data.txt");
+            File file = new File(absPath + "SMVI_Data.txt");
             FileWriter writer = new FileWriter(file);
             String[] varNames = new String[]{"va","na","vb","nb","T","t"};
             double va = STOCK.getVariation(STOCK.getRawData());
@@ -168,7 +174,7 @@ class gui {
             writer.close();
             RunPython.Run(2);
             WriteText("Social Media Volatility Index: " + RunPython.getOutput(2));
-        }catch(Exception e){System.out.println("Error in \"writeSMVI\"\n"+e);}
+        }catch(Exception e){System.out.println("Error in \"writeSMVI\"\n"+ e + "\n" + "Error on line number " + e.getStackTrace()[0].getLineNumber());}
     }
 
 }

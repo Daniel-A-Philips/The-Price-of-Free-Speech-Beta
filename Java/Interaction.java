@@ -64,7 +64,7 @@ public class Interaction {
     private void writeHandles(){
         if(forSMVI) return;
         try{
-            File file = new File("Data\\Handles.csv");
+            File file = new File(gui.absPath + "Handles.csv");
             FileWriter writer = new FileWriter(file);
             Handle = Handle.replaceAll("\\s+","");
             String[] Handles = Handle.split(",");

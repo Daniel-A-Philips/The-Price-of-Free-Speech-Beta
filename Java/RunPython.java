@@ -1,6 +1,7 @@
 package Java;
 import java.io.*;
 import java.nio.charset.*;
+import java.nio.file.*;
 import java.util.*;
 
 public class RunPython {
@@ -13,7 +14,10 @@ public class RunPython {
     }
 
     public static void Run(int index) {
-        String fileName = "Python//" + toRun[index];
+        Path p = Paths.get("PathTest.java");
+        p = p.toAbsolutePath();
+        String absPath = p.toString().substring(0,p.toString().lastIndexOf("/"))+"/Python/";
+        String fileName = absPath + toRun[index];
         System.out.println("Running \"" + fileName + "\"");
         InputStream output = null;
         String text = "";
@@ -24,6 +28,14 @@ public class RunPython {
             output = (process.getInputStream());
         } catch (IOException e) {
             System.out.println(e);
+            try{
+                ProcessBuilder processBuilder = new ProcessBuilder("python3", fileName);
+                processBuilder.redirectErrorStream(true);
+                Process process = processBuilder.start();
+                output = (process.getInputStream());
+            }catch(IOException ee){
+                System.out.println(ee);
+            }
         }
         try (Scanner scanner = new Scanner(output, StandardCharsets.UTF_8.name())) {
             text = scanner.useDelimiter("\\A").next();

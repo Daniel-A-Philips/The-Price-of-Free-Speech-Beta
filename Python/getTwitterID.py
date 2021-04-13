@@ -91,8 +91,8 @@ def main():
     global ID
     handles = []
     allData = []
-    readFile = 'Data//Handles.csv'
-    writeFile = 'Data//Handles_ID.csv'
+    readFile = 'Data/Handles.csv'
+    writeFile = 'Data/Handles_ID.csv'
     index = 0
     invalid = []
     ID = []

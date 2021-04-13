@@ -1,14 +1,510 @@
 {
     "data": [
         {
-            "created_at": "2021-03-30T13:31:21.000Z",
-            "id": "1376889786762428421",
-            "text": "@SpaceX At least the crater is in the right place!"
+            "created_at": "2021-04-11T15:50:33.000Z",
+            "id": "1381273474400800773",
+            "text": "@vincent13031925 For now. Costs are decreasing rapidly."
+        },
+        {
+            "created_at": "2021-04-11T15:48:58.000Z",
+            "id": "1381273076709478403",
+            "text": "Love this beautiful shot"
+        },
+        {
+            "created_at": "2021-04-11T14:49:38.000Z",
+            "id": "1381258144916008964",
+            "text": "@agnostoxxx @CathieDWood @ARKInvest Trust the shrub"
+        },
+        {
+            "created_at": "2021-04-11T12:23:49.000Z",
+            "id": "1381221447322935303",
+            "text": "The art In Cyberpunk is incredible"
+        },
+        {
+            "created_at": "2021-04-11T06:18:47.000Z",
+            "id": "1381129584435818496",
+            "text": "@itsALLrisky \ud83e\udd23\ud83e\udd23"
+        },
+        {
+            "created_at": "2021-04-10T23:56:43.000Z",
+            "id": "1381033434806542336",
+            "text": "@seinfeldguru @WholeMarsBlog Nope haha"
+        },
+        {
+            "created_at": "2021-04-10T23:54:51.000Z",
+            "id": "1381032961814892545",
+            "text": "@WholeMarsBlog If you don\u2019t say anything &amp; engage Autopilot, it will soon guess based on time of day, taking you home or to work or to what\u2019s on your calendar"
+        },
+        {
+            "created_at": "2021-04-10T23:52:21.000Z",
+            "id": "1381032333126500355",
+            "text": "@DeltavPhotos @PortCanaveral That rocket is a hardcore veteran of many missions"
+        },
+        {
+            "created_at": "2021-04-10T22:09:02.000Z",
+            "id": "1381006333864861696",
+            "text": "Blimps rock https://t.co/e8cu5FkNOI"
+        },
+        {
+            "created_at": "2021-04-10T20:22:20.000Z",
+            "id": "1380979481309945856",
+            "text": "@engineers_feed Due to lower gravity, you can travel from surface of Mars to surface of Earth fairly easily with a single stage rocket. Earth to Mars is vastly harder."
+        },
+        {
+            "created_at": "2021-04-10T19:49:26.000Z",
+            "id": "1380971204299747328",
+            "text": "@DrPhiltill Good thread"
+        },
+        {
+            "created_at": "2021-04-10T19:46:36.000Z",
+            "id": "1380970491356225536",
+            "text": "@alexellisuk Pretty much"
+        },
+        {
+            "created_at": "2021-04-10T08:32:35.000Z",
+            "id": "1380800869382320134",
+            "text": "@tesla_adri @WholeMarsBlog These things are best thought of as probabilities. There are 5 forward-facing cameras. It is highly likely that at least one of them will see multiple cars ahead."
+        },
+        {
+            "created_at": "2021-04-10T08:23:03.000Z",
+            "id": "1380798469862957057",
+            "text": "@WholeMarsBlog Sensors are a bitstream and cameras have several orders of magnitude more bits/sec than radar (or lidar). \n\nRadar must meaningfully increase signal/noise of bitstream to be worth complexity of integrating it. \n\nAs vision processing gets better, it just leaves radar far behind."
+        },
+        {
+            "created_at": "2021-04-10T08:16:58.000Z",
+            "id": "1380796939151704071",
+            "text": "@WholeMarsBlog When radar and vision disagree, which one do you believe? Vision has much more precision, so better to double down on vision than do sensor fusion."
+        },
+        {
+            "created_at": "2021-04-10T07:46:16.000Z",
+            "id": "1380789209582034944",
+            "text": "@WholeMarsBlog This is a major problem!"
+        },
+        {
+            "created_at": "2021-04-10T07:45:17.000Z",
+            "id": "1380788962558496768",
+            "text": "Just needs some legs"
+        },
+        {
+            "created_at": "2021-04-10T07:45:10.000Z",
+            "id": "1380788934905503744",
+            "text": "The Starship launch tower that catches the giant rocket booster is basically Mechazilla"
+        },
+        {
+            "created_at": "2021-04-10T07:29:45.000Z",
+            "id": "1380785053542666242",
+            "text": "But wait how is the core of the earth lit by the sun? Stop asking questions!!"
+        },
+        {
+            "created_at": "2021-04-10T07:29:01.000Z",
+            "id": "1380784868729122818",
+            "text": "Kong vs Godzilla has record for most meth ever consumed in a writer\u2019s room"
+        },
+        {
+            "created_at": "2021-04-10T07:25:11.000Z",
+            "id": "1380783907096850433",
+            "text": "@itsALLrisky \ud83d\udcaf"
+        },
+        {
+            "created_at": "2021-04-10T07:15:47.000Z",
+            "id": "1380781539647053826",
+            "text": "\u2026 going to moon very soon"
+        },
+        {
+            "created_at": "2021-04-10T07:12:20.000Z",
+            "id": "1380780669895208961",
+            "text": "@Matsu_Kusarine @jagarikin Actually happened to me in Cyberpunk haha"
+        },
+        {
+            "created_at": "2021-04-10T06:51:12.000Z",
+            "id": "1380775355502317568",
+            "text": "@TimBirks1 @Erdayastronaut @SpaceX Pretty much"
+        },
+        {
+            "created_at": "2021-04-10T06:44:23.000Z",
+            "id": "1380773639038111751",
+            "text": "@memescryptor !"
+        },
+        {
+            "created_at": "2021-04-10T06:41:45.000Z",
+            "id": "1380772975733923841",
+            "text": "Where is Shrek 5!? https://t.co/PqAZ5Mg8Es"
+        },
+        {
+            "created_at": "2021-04-10T01:07:04.000Z",
+            "id": "1380688750179586049",
+            "text": "@AustinTeslaClub @OwenSparks_ @WholeMarsBlog Good point. \n\nNext major software rev will do much better with automating wipers, seat heating &amp; defrost. \n\nProbable seat settings just based on occupant mass distribution should be possible."
+        },
+        {
+            "created_at": "2021-04-10T01:04:26.000Z",
+            "id": "1380688087697612802",
+            "text": "@Adamklotz_ @OwenSparks_ @WholeMarsBlog Yup"
+        },
+        {
+            "created_at": "2021-04-10T00:33:12.000Z",
+            "id": "1380680228230426625",
+            "text": "@teslaownersSV @neuralink Turns out \ud83d\udc12 love video games &amp; snacks just like us!"
+        },
+        {
+            "created_at": "2021-04-09T22:24:01.000Z",
+            "id": "1380647716959645700",
+            "text": "It\u2019s all about the cufflinks https://t.co/elccqC0Zuf"
+        },
+        {
+            "created_at": "2021-04-09T22:21:50.000Z",
+            "id": "1380647165597339650",
+            "text": "@chicago_glenn I feel like this sometimes"
+        },
+        {
+            "created_at": "2021-04-09T19:41:08.000Z",
+            "id": "1380606725380706304",
+            "text": "@OwenSparks_ @WholeMarsBlog It will"
+        },
+        {
+            "created_at": "2021-04-09T19:41:01.000Z",
+            "id": "1380606694816800768",
+            "text": "@OwenSparks_ @WholeMarsBlog Remove"
+        },
+        {
+            "created_at": "2021-04-09T19:39:26.000Z",
+            "id": "1380606296945135617",
+            "text": "@w00ki33 @SpaceX @SuperclusterHQ Simulation is improving rendering resolution  \u2026"
+        },
+        {
+            "created_at": "2021-04-09T19:14:21.000Z",
+            "id": "1380599983481577472",
+            "text": "@cleantechnica Congrats to NIO. That is a tough milestone."
+        },
+        {
+            "created_at": "2021-04-09T19:13:12.000Z",
+            "id": "1380599694154362882",
+            "text": "@WholeMarsBlog Almost ready with FSD Beta V9.0. Step change improvement is massive, especially for weird corner cases &amp; bad weather. Pure vision, no radar."
+        },
+        {
+            "created_at": "2021-04-09T11:24:30.000Z",
+            "id": "1380481743531089924",
+            "text": "Thanks to all that helped SpaceX!"
+        },
+        {
+            "created_at": "2021-04-09T11:21:13.000Z",
+            "id": "1380480918243090433",
+            "text": "Just read it. Book is accurate. https://t.co/3bI9Vw8iP1"
+        },
+        {
+            "created_at": "2021-04-09T07:35:55.000Z",
+            "id": "1380424218261692418",
+            "text": "@TeslaGong Yeah"
+        },
+        {
+            "created_at": "2021-04-09T07:35:17.000Z",
+            "id": "1380424061105266695",
+            "text": "@mikevanbus @TrungTPhan @neuralink Pretty much"
+        },
+        {
+            "created_at": "2021-04-09T07:32:42.000Z",
+            "id": "1380423408542904326",
+            "text": "https://t.co/XeQursZpvq"
+        },
+        {
+            "created_at": "2021-04-09T04:11:42.000Z",
+            "id": "1380372826071330817",
+            "text": "Soon our monkey will be on twitch &amp; discord haha"
+        },
+        {
+            "created_at": "2021-04-09T03:06:00.000Z",
+            "id": "1380356292850540546",
+            "text": "@thenewsoncnbc @contessabrewer Good piece!"
+        },
+        {
+            "created_at": "2021-04-09T03:01:15.000Z",
+            "id": "1380355094848307204",
+            "text": "@Kyler_Knoll @neuralink Comes with wireless charging baseball cap"
+        },
+        {
+            "created_at": "2021-04-09T02:57:27.000Z",
+            "id": "1380354140241494016",
+            "text": "@TarekWaked @TechCrunch @etherington Pretty much \ud83e\udd23\ud83e\udd23 Great episode!"
+        },
+        {
+            "created_at": "2021-04-09T01:48:09.000Z",
+            "id": "1380336699847233537",
+            "text": "A monkey is literally playing a video game telepathically using a brain chip!!"
+        },
+        {
+            "created_at": "2021-04-09T01:41:40.000Z",
+            "id": "1380335069580038145",
+            "text": "@lexfridman @neuralink Yes"
+        },
+        {
+            "created_at": "2021-04-09T01:41:23.000Z",
+            "id": "1380334998524321792",
+            "text": "The device is implanted flush with skull &amp; charges wirelessly, so you look &amp; feel totally normal"
+        },
+        {
+            "created_at": "2021-04-09T01:38:20.000Z",
+            "id": "1380334229016305666",
+            "text": "@IheartTesla Absolutely doable. Possibly as soon as Neuralink device version 2, highly likely by version 3."
+        },
+        {
+            "created_at": "2021-04-09T00:29:40.000Z",
+            "id": "1380316949087854595",
+            "text": "Later versions will be able to shunt signals from Neuralinks in brain to Neuralinks in body motor/sensory neuron clusters, thus enabling, for example, paraplegics to walk again"
+        },
+        {
+            "created_at": "2021-04-09T00:25:25.000Z",
+            "id": "1380315879091544064",
+            "text": "@mindofkacper @neuralink Yes"
+        },
+        {
+            "created_at": "2021-04-09T00:24:31.000Z",
+            "id": "1380315654524301315",
+            "text": "First @Neuralink product will enable someone with paralysis to use a smartphone with their mind faster than someone using thumbs"
+        },
+        {
+            "created_at": "2021-04-09T00:19:52.000Z",
+            "id": "1380314485324308482",
+            "text": "@IheartTesla @neuralink Hopefully, later this year"
+        },
+        {
+            "created_at": "2021-04-09T00:19:00.000Z",
+            "id": "1380314267077894148",
+            "text": "@tobyliiiiiiiiii Sure"
+        },
+        {
+            "created_at": "2021-04-09T00:16:21.000Z",
+            "id": "1380313600187719682",
+            "text": "Monkey plays Pong with his mind https://t.co/35NIFm4C7T"
+        },
+        {
+            "created_at": "2021-04-08T20:45:19.000Z",
+            "id": "1380260488299180035",
+            "text": "@dogeofficialceo @WatchersTank @SpaceX Looking at pups soon!"
+        },
+        {
+            "created_at": "2021-04-08T20:43:36.000Z",
+            "id": "1380260058026532864",
+            "text": "@jordanxmajel @WatchersTank @SpaceX Shock absorption is built into tower arms. Since tower is ground side, it can use a lot more mass to arrest booster downward momentum."
+        },
+        {
+            "created_at": "2021-04-08T20:40:12.000Z",
+            "id": "1380259201436422145",
+            "text": "@jordanxmajel @WatchersTank @SpaceX Load points just below the grid fins"
+        },
+        {
+            "created_at": "2021-04-08T20:37:57.000Z",
+            "id": "1380258637977804801",
+            "text": "@WatchersTank @SpaceX Just one skyscraper catching another nbd haha"
+        },
+        {
+            "created_at": "2021-04-08T09:41:16.000Z",
+            "id": "1380093374833729537",
+            "text": "Thanks Tesla suppliers for providing us with critical parts!"
+        },
+        {
+            "created_at": "2021-04-07T20:11:07.000Z",
+            "id": "1379889495558905856",
+            "text": "@MarkJam93765764 @IvanEscobosa A tidal wave of vaccine is being produced!"
+        },
+        {
+            "created_at": "2021-04-07T20:09:27.000Z",
+            "id": "1379889077185519617",
+            "text": "@jgrano305 Probably J&amp;J, but BioNtech &amp; Moderna are good too. Some debate imo as to whether a second synthetic mRNA shot is really needed, but the first is a no-brainer."
+        },
+        {
+            "created_at": "2021-04-07T20:04:42.000Z",
+            "id": "1379887880504365057",
+            "text": "@IvanEscobosa Latter"
+        },
+        {
+            "created_at": "2021-04-07T20:02:22.000Z",
+            "id": "1379887294933467139",
+            "text": "To be clear, I do support vaccines in general &amp; covid vaccines specifically. The science is unequivocal. \n\nIn very rare cases, there is an allergic reaction, but this is easily addressed with an EpiPen."
+        },
+        {
+            "created_at": "2021-04-07T19:36:55.000Z",
+            "id": "1379880889383972865",
+            "text": "@DavidWillisSLS @_Jevis_ @PPathole Needs legs for moon &amp; Mars"
+        },
+        {
+            "created_at": "2021-04-07T19:35:27.000Z",
+            "id": "1379880518250983425",
+            "text": "@SciGuySpace Global payload to orbit is the key metric"
+        },
+        {
+            "created_at": "2021-04-07T19:20:32.000Z",
+            "id": "1379876763807850496",
+            "text": "@Julius_Burton @Erdayastronaut @DJSnM @NASASpaceflight @ChrisG_NSF @thejackbeyer @FelixSchlang Nice"
+        },
+        {
+            "created_at": "2021-04-07T19:19:17.000Z",
+            "id": "1379876450744995843",
+            "text": "@_Jevis_ @PPathole Ideal scenario imo is catching Starship in horizontal \u201cglide\u201d with no landing burn, although that is quite a challenge for the tower! Next best is catching with tower, with emergency pad landing mode on skirt (no legs)."
+        },
+        {
+            "created_at": "2021-04-07T19:15:46.000Z",
+            "id": "1379875566719930376",
+            "text": "RT @SpaceX: Deployment of 60 Starlink satellites confirmed, completing SpaceX\u2019s 10th mission this year https://t.co/c15BveB3QE"
+        },
+        {
+            "created_at": "2021-04-07T19:13:21.000Z",
+            "id": "1379874956343828485",
+            "text": "@PPathole Starship booster, largest flying object ever designed, will be caught out of sky by launch tower. Big step forward, as reflight can be done in under an hour."
+        },
+        {
+            "created_at": "2021-04-07T18:59:11.000Z",
+            "id": "1379871391957184515",
+            "text": "@WholeMarsBlog Well-written and fair, much like his articles on space"
+        },
+        {
+            "created_at": "2021-04-07T10:40:11.000Z",
+            "id": "1379745815678230529",
+            "text": "@louisssdev @flcnhvy Coming soon. Crazy number of launches this year!"
+        },
+        {
+            "created_at": "2021-04-07T10:36:44.000Z",
+            "id": "1379744947453054981",
+            "text": "@flcnhvy They will be recovered from the water &amp; reused"
+        },
+        {
+            "created_at": "2021-04-06T19:28:24.000Z",
+            "id": "1379516358040244225",
+            "text": "\u201cTanks for the memery!\u201d \u2013 Panzer of the Lake"
+        },
+        {
+            "created_at": "2021-04-06T02:23:37.000Z",
+            "id": "1379258463386284038",
+            "text": "@CathieDWood @wintonARK @ARKInvest What do you think of the unusually high ratio of S&amp;P market cap to GDP?"
+        },
+        {
+            "created_at": "2021-04-06T00:30:28.000Z",
+            "id": "1379229987115515907",
+            "text": "@ID_AA_Carmack Some kind of ELO level, updated once or twice a year based on what someone actually got done, might be most effective. Important that it go both up *and* down."
+        },
+        {
+            "created_at": "2021-04-05T12:57:36.000Z",
+            "id": "1379055622042353667",
+            "text": "@Thomas38697956 New &amp; improved version!"
+        },
+        {
+            "created_at": "2021-04-05T11:29:58.000Z",
+            "id": "1379033568882663426",
+            "text": "@Teslarati @ResidentSponge Special mention of Tesla China"
+        },
+        {
+            "created_at": "2021-04-05T11:21:24.000Z",
+            "id": "1379031412288974852",
+            "text": "@shbzz Obv"
+        },
+        {
+            "created_at": "2021-04-05T11:20:03.000Z",
+            "id": "1379031071732416514",
+            "text": "@Teslarati @ResidentSponge Great work by Tesla team!"
+        },
+        {
+            "created_at": "2021-04-05T11:05:33.000Z",
+            "id": "1379027422423695363",
+            "text": "@EvaFoxU Nice"
+        },
+        {
+            "created_at": "2021-04-05T11:01:29.000Z",
+            "id": "1379026401341419520",
+            "text": "The Earth is not flat, it\u2019s a hollow globe &amp; Donkey King lives there!"
+        },
+        {
+            "created_at": "2021-04-05T10:49:22.000Z",
+            "id": "1379023352480866304",
+            "text": "@EvaFoxU Those two really could have come in handy for the stuck ship!"
+        },
+        {
+            "created_at": "2021-04-05T10:47:48.000Z",
+            "id": "1379022958157512705",
+            "text": "@EvaFoxU Last Kingdom vs Vikings"
+        },
+        {
+            "created_at": "2021-04-05T10:46:49.000Z",
+            "id": "1379022709737275393",
+            "text": "@spacex360 Ascent phase, transition to horizontal &amp; control during free fall were good. \n\nA (relatively) small CH4 leak led to fire on engine 2 &amp; fried part of avionics, causing hard start attempting landing burn in CH4 turbopump. \n\nThis is getting fixed 6 ways to Sunday."
+        },
+        {
+            "created_at": "2021-04-05T10:28:55.000Z",
+            "id": "1379018204203388930",
+            "text": "RT @SpaceX: Dragon is go for the first-ever port relocation flight of a commercial spacecraft https://t.co/qV7AktWsqQ"
+        },
+        {
+            "created_at": "2021-04-05T10:28:42.000Z",
+            "id": "1379018148570091522",
+            "text": "Godzilla vs Kong is so amaze much wow!\nMost insane movie I\u2019ve ever seen!\nLove letter to conspiracy theorists!\nAnd yet heartwarming in the end."
+        },
+        {
+            "created_at": "2021-04-05T02:39:43.000Z",
+            "id": "1378900127402852352",
+            "text": "@TerminalCount The Starships feast in Valhalla!"
+        },
+        {
+            "created_at": "2021-04-05T02:23:41.000Z",
+            "id": "1378896089760337922",
+            "text": "@TerminalCount One of the greatest things I\u2019ve ever seen"
+        },
+        {
+            "created_at": "2021-04-04T22:36:31.000Z",
+            "id": "1378838922244063237",
+            "text": "@floko12022021 @HamblinZeke @katlinegrey Ich habe ein Semester Deutsch an der Universit\u00e4t studiert usw"
+        },
+        {
+            "created_at": "2021-04-04T22:28:32.000Z",
+            "id": "1378836915420602372",
+            "text": "@HamblinZeke @katlinegrey Haha Falcon? Nein!"
+        },
+        {
+            "created_at": "2021-04-04T22:27:17.000Z",
+            "id": "1378836600881352706",
+            "text": "@tobyliiiiiiiiii @katlinegrey I recommend propulsive landing, as that is extensible to planets, moons &amp; asteroids. Wings &amp; runways are limited to Earth."
+        },
+        {
+            "created_at": "2021-04-04T22:25:38.000Z",
+            "id": "1378836183745191936",
+            "text": "@PPathole @katlinegrey For practical purposes, there is no limit. It will just get increasingly difficult to service."
+        },
+        {
+            "created_at": "2021-04-04T18:25:28.000Z",
+            "id": "1378775743115694085",
+            "text": "@katlinegrey This a good path, but I recommend aiming for full reusability"
+        },
+        {
+            "created_at": "2021-04-04T10:53:26.000Z",
+            "id": "1378661987324993542",
+            "text": "Urgent need to build more housing in greater Austin area!"
+        },
+        {
+            "created_at": "2021-04-04T06:25:28.000Z",
+            "id": "1378594549086482432",
+            "text": "Austin++"
+        },
+        {
+            "created_at": "2021-04-04T01:03:00.000Z",
+            "id": "1378513398044971009",
+            "text": "No it doesn\u2019t hurt at all \ud83e\ude78 https://t.co/NnL6o1si0V"
+        },
+        {
+            "created_at": "2021-04-03T11:30:12.000Z",
+            "id": "1378308850726678528",
+            "text": "@allrocketsboi True"
+        },
+        {
+            "created_at": "2021-04-03T05:38:12.000Z",
+            "id": "1378220267336503296",
+            "text": "@GerberKawasaki I fried a lot of neurons on that problem!"
+        },
+        {
+            "created_at": "2021-04-03T04:31:41.000Z",
+            "id": "1378203527219183619",
+            "text": "Me in my sick new car\n(left him the money) https://t.co/EGaY1FVfHm"
         }
     ],
     "meta": {
-        "newest_id": "1376889786762428421",
-        "oldest_id": "1376889786762428421",
-        "result_count": 1
+        "newest_id": "1381273474400800773",
+        "next_token": "7140dibdnow9c7btw3w3ybpnkl45422ajcuhaz5plursp",
+        "oldest_id": "1378203527219183619",
+        "result_count": 100
     }
 }

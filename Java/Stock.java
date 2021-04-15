@@ -28,7 +28,10 @@ public class Stock {
     public Stock(String Ticker, String Interval, String Slice, boolean forSMVI) throws IOException {
         this.Ticker = Ticker;
         this.Interval = Interval;
-        this.Slice = Slice;
+        //this.Slice = Slice;
+        this.StartSlice = Interaction.allSlices.get(0);
+        this.EndSlice = Interaction.allSlices.get(6);
+        isRange = true;
         this.forSMVI = forSMVI;
         run();
     }
@@ -87,10 +90,11 @@ public class Stock {
             System.out.println("Error in \"getHistory\"\n"+E);}
     }
 
-    private void getHistory(int l) throws IOException{
-        ArrayList<String> MonthList = gui.Months;
+    private void getHistory(int l){
+        ArrayList<String> MonthList = Interaction.allSlices;
         int StartIndex = MonthList.indexOf(StartSlice);
         int EndIndex = MonthList.indexOf(EndSlice);
+        System.out.println("StartIndex =" + StartIndex + " EndIndex =" + EndIndex);
         Interval += "min";
         Time_Series = "TIME_SERIES_" + Time_Series;
         String line;
@@ -112,22 +116,29 @@ public class Stock {
                 
             } 
             catch(IOException E){
-                System.out.println("Error in \"getHistory\"\n"+E);
+                System.out.println("Error in \"getHistory\"\nError occured on line: "+E.getStackTrace()[0].getLineNumber());
             }
         }
-        File file;
-        if(forSMVI) file = new File("Data//DIA_Data.csv");
-        else file = new File("Data//Data.csv");
-        FileWriter writer = new FileWriter(file);
-        for(String Line : CollectedData){
-            writer.write(Line+"\n");
-        }
-        writer.close();
-        RawData = parseData(file.toPath().toString());
-        DayData = getDayData();
-        WeekData = GetWeekData();
-        LatestOpeningPrice = getLatestOpenPrice();
-        SevenDayOpeningPrice = getSevenDayOpeningPrice();
+        try{
+            File file;
+            if(forSMVI) file = new File("Data//DIA_Data.csv");
+            else file = new File("Data//Data.csv");
+            FileWriter writer = new FileWriter(file);
+            for(String Line : CollectedData){
+                writer.write(Line+"\n");
+            }
+            writer.close();
+            System.out.println("raw");
+            RawData = parseData(file.toPath().toString());
+            System.out.println("day");
+            DayData = getDayData();
+            System.out.println("week");
+            WeekData = GetWeekData();
+            System.out.println("lateopening");
+            LatestOpeningPrice = getLatestOpenPrice(); //Causes Error
+            System.out.println("sevendayopening");
+            SevenDayOpeningPrice = getSevenDayOpeningPrice();
+        }catch(Exception e){System.out.println("Error on line number " + e.getStackTrace()[0].getLineNumber());}
     }
 
 

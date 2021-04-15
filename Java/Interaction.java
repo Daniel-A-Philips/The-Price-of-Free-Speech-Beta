@@ -17,6 +17,7 @@ public class Interaction {
     private String Handle;
     private boolean forSMVI;
     private Stock stock;
+    protected static ArrayList<String> allSlices = new ArrayList<String>();
 
     public Interaction(String Ticker, int IntervalIndex, int MonthIndex, String Handle, boolean forSMVI) throws IOException {
         this.Ticker = Ticker;
@@ -49,7 +50,7 @@ public class Interaction {
                 stock = new Stock(Ticker, Interval, StartSlice, EndSlice, forSMVI);
             }
             if(!forSMVI) print("Day SD of " + this.Ticker + ": " + stock.DayDeviation() + "\nDaily Average of " + this.Ticker + ": " + stock.avgDayPrice());
-        } catch(Exception e){System.err.println(e + "\nThis error occured in the \"run\" method in \"Interaction\"");}
+        } catch(Exception e){System.err.println(e + e.getLocalizedMessage());}
     }
 
     private void parseTicker(){
@@ -65,28 +66,20 @@ public class Interaction {
     }
 
     private void parseSlice(){
-        if(MonthIndex != 1){ //Check if we only have one month given
+        for(int i = 0; i < 24; i++){
             String year = "year";
-            if(MonthIndex < 12) year+="1";
-            else if(MonthIndex < 24) year += "2";
+            if(i < 12) year+="1";
+            else if(i < 24) year += "2";
             String month = "month";
-            if(MonthIndex < 12) month += MonthIndex+1;
-            else if(MonthIndex < 24) month += MonthIndex-11;
-            Slice = year+month;     
+            if(i < 12) month += i+1;
+            else if(i < 24) month += i-11;
+            allSlices.add(year+month);
+        }
+        if(MonthIndex != 1){ //Check if we only have one month given
+            Slice = allSlices.get(MonthIndex); 
         }else{ //Runs if we have two dates for the months
-            int IndexToUse;
-            for(int i = 0; i < 2; i++){
-                if(i == 0) IndexToUse = StartMonthIndex;
-                else IndexToUse = EndMonthIndex;
-                String year = "year";
-                if(IndexToUse < 12) year+="1";
-                else if(IndexToUse < 24) year += "2";
-                String month = "month";
-                if(IndexToUse < 12) month += IndexToUse+1;
-                else if(IndexToUse < 24) month += IndexToUse-11;
-                if(i == 0) StartSlice = year+month;
-                else EndSlice = year+month;
-            }
+            StartSlice = allSlices.get(StartMonthIndex);
+            EndSlice = allSlices.get(EndMonthIndex);
         }
         System.out.println("parsed Slice");
     }

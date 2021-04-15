@@ -20,6 +20,7 @@ class gui {
     private static Interaction STOCK;
     private static Interaction DIA;
     private static int timeRange;
+    public static ArrayList<String> Months = new ArrayList<>();
     public static String absPath = Paths.get("PathTest.java").toAbsolutePath().toString().substring(0,Paths.get("PathTest.java").toAbsolutePath().toString().lastIndexOf("/"))+"/Data/";
 
     public static void main(String[] args) {
@@ -90,6 +91,7 @@ class gui {
         Date currentDate = new Date();
         int[] year = {Integer.parseInt(StartInput.split(" ")[1]),Integer.parseInt(EndInput.split(" ")[1])};
         int[] months = {monthList.indexOf(StartInput.split(" ")[0]),monthList.indexOf(EndInput.split(" ")[0])};
+        System.out.println(StartInput + " : " + Months.get(0));
         Date startDate = new Date(year[0], months[0], 1);
         YearMonth temp = YearMonth.of(year[1],months[1]);
         int endDateDays = temp.lengthOfMonth();
@@ -129,7 +131,6 @@ class gui {
      * A method that calculates which months and years should be showning the dropdown menu as well as there order
      */
     private static void createDropdown() {
-        ArrayList<String> Months = new ArrayList<>();
         String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
         LocalDate currentdate = LocalDate.now();
         int currentyear = currentdate.getYear();

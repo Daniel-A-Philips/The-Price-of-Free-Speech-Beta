@@ -16,39 +16,46 @@ public class Stock {
     protected String Interval;
     protected String Ticker;
     protected String Slice;
+    protected String StartSlice;
+    protected String EndSlice;
     protected boolean forSMVI;
     protected String Time_Series = "INTRADAY_EXTENDED";
     final String APIKey = "4HRPSUDJ4S8WR99F";
     protected double LatestOpeningPrice;
     protected double SevenDayOpeningPrice;
+    protected boolean isRange = false;
 
     public Stock(String Ticker, String Interval, String Slice, boolean forSMVI) throws IOException {
-        this.Interval = Interval;
         this.Ticker = Ticker;
+        this.Interval = Interval;
         this.Slice = Slice;
         this.forSMVI = forSMVI;
-        if (Interval.equals("")) this.Interval = "5";
-        if (Ticker.equals("")) this.Ticker = "IBM";
-        if (Slice.equals("")) this.Slice = "year1month1";
+        run();
+    }
+
+    public Stock(String Ticker, String Interval, String StartSlice, String EndSlice, boolean forSMVI) throws IOException {
+        this.Ticker = Ticker;
+        this.Interval = Interval;
+        this.StartSlice = StartSlice;
+        this.EndSlice = EndSlice;
+        this.forSMVI = forSMVI;
+        isRange = true;
         run();
     }
 
     /**
      * Used to test the Stock class
      */
-    public Stock() {
+    public Stock() throws IOException{
         Interval = "5";
         Ticker = "IBM";
         Slice = "year1month1";
-        try {
-            run();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        run();
     }
 
     public void run() throws IOException {
-        getHistory();
+        if(!isRange) getHistory();
+        else getHistory(1);
     }
 
     private void getHistory(){
@@ -79,6 +86,51 @@ public class Stock {
         catch(IOException E){
             System.out.println("Error in \"getHistory\"\n"+E);}
     }
+
+    private void getHistory(int l) throws IOException{
+        ArrayList<String> MonthList = gui.Months;
+        int StartIndex = MonthList.indexOf(StartSlice);
+        int EndIndex = MonthList.indexOf(EndSlice);
+        Interval += "min";
+        Time_Series = "TIME_SERIES_" + Time_Series;
+        String line;
+        ArrayList<String> CollectedData = new ArrayList<String>();
+        for(int i = StartIndex; i <= EndIndex; i++){
+            try{
+                String currentSlice = MonthList.get(i);
+                URL url = new URL("https://www.alphavantage.co/query?function="+Time_Series+"&symbol="+Ticker+"&interval="+Interval+"&slice="+currentSlice+"&apikey="+APIKey);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = url.openStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String Header = "time,open,high,low,close,volume";
+                while((line = reader.readLine()) != null) {
+                    if(CollectedData.size() != 0 && line.equals(Header)) continue;
+                    CollectedData.add(line);
+                }
+                reader.close();
+                urlConnection.disconnect();
+                
+            } 
+            catch(IOException E){
+                System.out.println("Error in \"getHistory\"\n"+E);
+            }
+        }
+        File file;
+        if(forSMVI) file = new File("Data//DIA_Data.csv");
+        else file = new File("Data//Data.csv");
+        FileWriter writer = new FileWriter(file);
+        for(String Line : CollectedData){
+            writer.write(Line+"\n");
+        }
+        writer.close();
+        RawData = parseData(file.toPath().toString());
+        DayData = getDayData();
+        WeekData = GetWeekData();
+        LatestOpeningPrice = getLatestOpenPrice();
+        SevenDayOpeningPrice = getSevenDayOpeningPrice();
+    }
+
+
     /*
     public void getHistory(String slice){
         Interval += "min";

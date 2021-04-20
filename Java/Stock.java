@@ -107,9 +107,13 @@ public class Stock {
                 InputStream in = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String Header = "time,open,high,low,close,volume";
+                boolean hasHeader = false;
                 while((line = reader.readLine()) != null) {
-                    if(CollectedData.size() != 0 && line.equals(Header)) continue;
+                    if(hasHeader && line.equals(Header)){
+                        continue;
+                    }
                     CollectedData.add(line);
+                    if(!hasHeader) hasHeader = true;
                 }
                 reader.close();
                 urlConnection.disconnect();
@@ -132,6 +136,7 @@ public class Stock {
             RawData = parseData(file.toPath().toString());
             System.out.println("day");
             DayData = getDayData();
+            System.out.println("DayData Size = " + DayData.size());
             System.out.println("week");
             WeekData = GetWeekData();
             System.out.println("lateopening");
@@ -194,16 +199,21 @@ public class Stock {
     }
 
     private ArrayList<String[]> getDayData(String Date){
-        ArrayList<String[]> DayData = new ArrayList<>();
+        ArrayList<String[]> DayData = new ArrayList<String[]>();
         int start = -1;
         int end = -1;
+        try{
+            System.out.println("Date: "+Date);
+        }catch(Exception e) {System.out.println("Error when printing date");}
         for(int i = 1; i < RawData.size(); i++){
-            if(RawData.get(i)[0].substring(0,RawData.get(i)[0].indexOf(":")-3).equals(Date.substring(0,Date.indexOf(":")-3))){
+            System.out.println(RawData.get(i)[0]);
+            if(RawData.get(i)[0].substring(0,11).equals(Date.substring(0,11))){
                 if(start == -1) start = i;
                 end = i;
             }
         }
-
+        System.out.println("start: " + start);
+        System.out.println("end: " + end);
         for(int f = start; f <= end; f++){
             DayData.add(RawData.get(f));
         }
@@ -220,15 +230,19 @@ public class Stock {
             if(!RawData.get(i)[0].substring(0,RawData.get(i)[0].indexOf(":")-3).equals(Week[Index-1].substring(0,Week[Index-1].indexOf(":")-3))){
                 Week[Index] = RawData.get(i)[0];
                 Index++;
+                System.out.println("\tFound Needed Info");
             }
         }
+        System.out.println("\tFinished Loop, Starting to add dates");
         for(String date : Week){
-            WeekData.add(getDayData(date));
+            WeekData.add(getDayData(date)); //Error in getDayData();
         }
+        System.out.println("\tFinished Adding Dates");
         return WeekData;
     }
 
     private double getLatestOpenPrice(){
+        System.out.println("Output from getLatestOpenPrice() = " + DayData.get(DayData.size()-1).length);
         return Double.parseDouble(DayData.get(DayData.size()-1)[1]);
     }
 

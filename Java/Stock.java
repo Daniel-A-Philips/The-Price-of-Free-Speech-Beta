@@ -143,38 +143,9 @@ public class Stock {
             LatestOpeningPrice = getLatestOpenPrice(); //Causes Error
             System.out.println("sevendayopening");
             SevenDayOpeningPrice = getSevenDayOpeningPrice();
-        }catch(Exception e){System.out.println("Error on line number " + e.getStackTrace()[0].getLineNumber());}
+        }catch(Exception e){System.out.println(e + "\non line number " + e.getStackTrace()[0].getLineNumber());}
     }
 
-
-    /*
-    public void getHistory(String slice){
-        Interval += "min";
-        Time_Series = "TIME_SERIES_" + Time_Series;
-        try{
-            URL url = new URL("https://www.alphavantage.co/query?function="+Time_Series+"&symbol="+Ticker+"&interval="+Interval+"&slice="+slice+"&apikey="+APIKey);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            File file;
-            if(forSMVI) file = new File("Data//DIA_Data.csv");
-            else file = new File("Data//Data.csv");
-            FileWriter writer = new FileWriter(file,true);
-            String line;
-            while((line = reader.readLine()) != null) {
-                if(line.contains("time")) continue;
-                writer.write(line);
-            }
-            reader.close();
-            writer.close();
-            urlConnection.disconnect();
-            RawData.addAll(parseData());
-            DayData.addAll(getDayData());
-            WeekData.addAll(GetWeekData());
-        } 
-        catch(IOException E){
-            System.out.println("Error in \"getHistory(String slice)\"\n"+E);}
-    }*/
 
     private ArrayList<String[]> parseData(String file) throws IOException {
         ArrayList<String[]> ParsedData = new ArrayList<String[]>();
@@ -202,11 +173,12 @@ public class Stock {
         ArrayList<String[]> DayData = new ArrayList<String[]>();
         int start = -1;
         int end = -1;
-        try{
-            System.out.println("Date: "+Date);
-        }catch(Exception e) {System.out.println("Error when printing date");}
+        System.out.println("Date: "+Date);
+        System.out.println(RawData.get(1)[0]);
         for(int i = 1; i < RawData.size(); i++){
-            System.out.println(RawData.get(i)[0]);
+            try{
+                if(RawData.get(i)[0].length() != Date.length()) continue;
+            }catch(Exception e){ continue; }
             if(RawData.get(i)[0].substring(0,11).equals(Date.substring(0,11))){
                 if(start == -1) start = i;
                 end = i;
@@ -227,6 +199,7 @@ public class Stock {
         int Index = 1;
         for(int i = 2; i < RawData.size(); i++){
             if(Index > 6) break;
+            if(RawData.get(i)[0].length() != 20) continue;
             if(!RawData.get(i)[0].substring(0,RawData.get(i)[0].indexOf(":")-3).equals(Week[Index-1].substring(0,Week[Index-1].indexOf(":")-3))){
                 Week[Index] = RawData.get(i)[0];
                 Index++;

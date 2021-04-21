@@ -88,6 +88,9 @@ class gui {
         ArrayList<String> monthList = new ArrayList<String>(Arrays.asList(tempMonths));
         String EndInput = SliceDropdown.getSelectedItem().toString();
         String StartInput = EndInput; //TODO: Change once the range functionn has been implemented
+        if(EndInput.equals(StartInput)){
+            System.out.println("Only one month is being used");
+        }
         Date currentDate = new Date();
         int[] year = {Integer.parseInt(StartInput.split(" ")[1]),Integer.parseInt(EndInput.split(" ")[1])};
         int[] months = {monthList.indexOf(StartInput.split(" ")[0]),monthList.indexOf(EndInput.split(" ")[0])};

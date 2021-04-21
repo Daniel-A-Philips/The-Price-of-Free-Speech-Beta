@@ -106,10 +106,10 @@ public class Stock {
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String Header = "time,open,high,low,close,volume";
+                String Time = "time";
                 boolean hasHeader = false;
                 while((line = reader.readLine()) != null) {
-                    if(hasHeader && line.equals(Header)){
+                    if(hasHeader && line.contains(Time)){
                         continue;
                     }
                     CollectedData.add(line);

@@ -146,6 +146,10 @@ public class Stock {
         }catch(Exception e){System.out.println(e + "\non line number " + e.getStackTrace()[0].getLineNumber());}
     }
 
+    private void getHistory(boolean a){
+        FinnHub finnhub = new FinnHub(StartSlice,EndSlice,Ticker,Interval);
+    }
+
 
     private ArrayList<String[]> parseData(String file) throws IOException {
         ArrayList<String[]> ParsedData = new ArrayList<String[]>();

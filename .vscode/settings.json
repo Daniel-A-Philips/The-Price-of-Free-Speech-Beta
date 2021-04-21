@@ -6,7 +6,6 @@
     ],
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
-    "python.pythonPath": "/bin/python3",
     "java.project.sourcePaths": [
         ""
     ]

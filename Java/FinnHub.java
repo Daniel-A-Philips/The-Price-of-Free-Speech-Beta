@@ -9,6 +9,7 @@ public class FinnHub {
     private String Interval;
     private String Ticker;
     private String Format = "csv";
+    protected int numDays = 0;
 
 
     protected ArrayList<String> RawData = new ArrayList<String>();
@@ -90,6 +91,7 @@ public class FinnHub {
                 YearMonth temp = YearMonth.of(year,month);
                 LocalDate date1 = LocalDate.of(year,month,1);
                 LocalDate date2 = LocalDate.of(year,month,temp.lengthOfMonth());
+                numDays += temp.lengthOfMonth();
                 Dates.add(new LocalDate[]{date1,date2});
                 holder.add(new long[]{toUnix(date1),toUnix(date2)});
                 return holder;

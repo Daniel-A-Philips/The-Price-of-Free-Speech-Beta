@@ -6,15 +6,34 @@ import java.net.*;
 
 public class FinnHub {
 
-    public String Interval;
-    public String Ticker;
-    public String Format = "csv";
-    public ArrayList<String> Lines = new ArrayList<String>();
-    public ArrayList<LocalDate[]> Dates = new ArrayList<LocalDate[]>();
-    private String[] tempMonthArray = new String[] {"" ,"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private String Interval;
+    private String Ticker;
+    private String Format = "csv";
+
+
+    protected ArrayList<String> RawData = new ArrayList<String>();
+    protected ArrayList<String> ParsedData = new ArrayList<String>();
+    protected ArrayList<String> Time = new ArrayList<String>();
+    protected ArrayList<Double> Open = new ArrayList<Double>();
+    protected ArrayList<Double> High = new ArrayList<Double>();
+    protected ArrayList<Double> Low = new ArrayList<Double>();
+    protected ArrayList<Double> Close = new ArrayList<Double>();
+    protected ArrayList<Double> Volume = new ArrayList<Double>();
+
+
+    protected ArrayList<LocalDate[]> Dates = new ArrayList<LocalDate[]>();
+    private final String[] tempMonthArray = new String[] {"" ,"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     String[] start_end = new String[2];
 
+    /**
+     * Runs on the creation of the instance
+     * Gathers and keeps track of data for a given stock
+     * @param start     The starting month and year, e.g. October 2020
+     * @param end       The ending month and year, e.g. January 2021
+     * @param Ticker    The ticker of the stock, e.g. AAPL
+     * @param Interval  The interval for the data gathering in minutes, e.g. 15
+     */
     FinnHub(String start, String end, String Ticker, String Interval){
         start_end[0] = start;
         start_end[1] = end;
@@ -26,12 +45,13 @@ public class FinnHub {
 
     private void Run(){
         try{
-            ArrayList<long[]> times = getDates(); //TODO: Used for beta
+            ArrayList<long[]> times = getDates();
             for(long[] time : times){
                 System.out.println(time[0] + ", "+ time[1]);
                 urlConnect(time[0],time[1]);
             }
             writeToCSV();
+            makeArrayLists();
         } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in betaRun.FinnHub.java");}
     }
 
@@ -44,12 +64,12 @@ public class FinnHub {
             String line;
             ArrayList<String> temp = new ArrayList<String>();
             while((line = reader.readLine()) != null) {
-                if(Lines.contains(line)) continue;
+                if(RawData.contains(line)) continue;
                 temp.add(line);
-                Lines.add(line);
+                RawData.add(line);
             }
-            temp.addAll(Lines);
-            Lines = temp;
+            temp.addAll(RawData);
+            RawData = temp;
         } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in urlConnect.FinnHub.java");}
     }
 
@@ -60,7 +80,8 @@ public class FinnHub {
             String b = start_end[1];
             ArrayList<String> months = new ArrayList<String>(Arrays.asList(tempMonthArray));
             System.out.println("Created Lists");
-            if(a.equals(b)){ //If only one month is selected
+            /* Run if only one month is selected */
+            if(a.equals(b)){
                 int year = Integer.parseInt(a.substring(a.length()-4,a.length()));
                 System.out.println("One month is selected");
                 System.out.println(year);
@@ -86,7 +107,7 @@ public class FinnHub {
 
             boolean isPreviousYear = false;
             boolean hasChangedYear = false;
-            for(int i = 0; i <= timesToRun; i++){ //TODO : Needs Work
+            for(int i = 0; i <= timesToRun; i++){
                 if(isPreviousYear & !hasChangedYear){
                     month2 = 12+i;
                     year2 = year1;
@@ -124,23 +145,37 @@ public class FinnHub {
             FileWriter writer = new FileWriter(tempFile);
             String ogHeaders = "t,o,h,l,c,v";
             String headers = "time,open,high,low,close,volume";
-            Lines.set(0,headers);
-            //Object[] lines = Lines.toArray();
-            for(Object a : Lines){
+            RawData.set(0,headers);
+            for(Object a : RawData){
                 line = a.toString();
                 if(line.equals(ogHeaders)) continue;
                 if(!line.equals(headers)){
                     long unix = Long.parseLong(line.substring(0,line.indexOf(",")));
                     Date date = new Date();
                     date.setTime((long)unix*1000);
-                    line = date + line.substring(line.indexOf(","),line.length()); //Line used to change UNIX to date and time format on csv file
+                    /* Comment the line below to change the date formatting to UNIX */
+                    line = date + line.substring(line.indexOf(","),line.length());
                 }
                 LinesToWrite.add(line);
             }
             for(int i = 0; i < LinesToWrite.size()/2; i++){
                 writer.write(LinesToWrite.get(i)+"\n");
+                ParsedData.add(LinesToWrite.get(i));
             }
             writer.close();
         }catch(IOException e){System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in writeToCSV.FinnHub.java");}
+    }
+
+    private void makeArrayLists(){
+        for(String s : ParsedData){
+            if(s.contains("w")) continue;
+            String[] raw = s.split(",");
+            Time.add(raw[0]);
+            Open.add(Double.parseDouble(raw[1]));
+            High.add(Double.parseDouble(raw[2]));
+            Low.add(Double.parseDouble(raw[3]));
+            Close.add(Double.parseDouble(raw[4]));
+            Volume.add(Double.parseDouble(raw[5]));
+        }
     }
 }

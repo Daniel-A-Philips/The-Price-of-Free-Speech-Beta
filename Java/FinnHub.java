@@ -40,10 +40,11 @@ public class FinnHub {
                 urlConnect(time[0],time[1]);
             }
             writeToCSV();
-        } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in FinnHub.java");}
+        } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in betaRun.FinnHub.java");}
     }
 
     private void urlConnect(long start, long end){
+        System.out.println("Connecting to URL");
         try{
             URL url = new URL("https://finnhub.io/api/v1/stock/candle?symbol=" + Ticker + "&resolution=" + Interval + "&from=" + start + "&to=" + end + "&format=" + Format + "&token=c1vv82l37jkoemkedus0");
             InputStream in = url.openStream();
@@ -58,7 +59,7 @@ public class FinnHub {
             }
             temp.addAll(Lines);
             Lines = temp;
-        } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in FinnHub.java");}
+        } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in urlConnect.FinnHub.java");}
     }
 
     private ArrayList<long[]> getDates(){
@@ -66,9 +67,11 @@ public class FinnHub {
         String b = start_end[1];
         ArrayList<String> months = new ArrayList<String>(Arrays.asList(tempMonthArray));
         ArrayList<long[]> holder = new ArrayList<long[]>();
+        System.out.println("Created Lists");
         //String[] start_end_months = new String[]{a.replaceAll("[0-9]", "").replaceAll(" ", ""), b.replaceAll("[0-9]", "").replaceAll(" ", "")};
         if(a.equals(b)){ //If only one month is selected
             int year = Integer.parseInt(a.substring(a.length()-4,a.length()));
+            System.out.println("One month is selected");
             System.out.println(year);
             int month = Integer.parseInt(a.substring(0,a.length()-3));
             System.out.println("year : " + year + ", month : " + month);
@@ -79,50 +82,65 @@ public class FinnHub {
             holder.add(new long[]{toUnix(date1),toUnix(date2)});
             return holder;
         }
+
         int year1 = Integer.parseInt(a.substring(a.length()-4,a.length()));
         int year2 = Integer.parseInt(b.substring(b.length()-4,b.length()));
+
         int month1 = months.indexOf(a.substring(0,a.length()-5));
         int month2 = months.indexOf(b.substring(0,b.length()-5));
-        int timesToRun = month2-month1;
-        for(int i = 0; i < timesToRun; i++){
-            System.out.println(month2-1-i);
-            LocalDate date1 = LocalDate.of(year1,month2-1-i,1);
-            System.out.println(date1);
+        
+        int timesToRun;
+        if(year2 != year1) timesToRun = month2 + (13-month1);
+        else timesToRun = month2-month1;
+
+        for(int i = 0; i <= timesToRun; i++){ //TO DO : Needs Work
+            if(month2-i == 0) month2 = 12;
+            LocalDate date1 = LocalDate.of(year1,month2-i,1);
             YearMonth temp = YearMonth.of(year2,month2-i);
             LocalDate date2 = LocalDate.of(year2,month2-i,temp.lengthOfMonth());
-            System.out.println(date2);
             Dates.add(new LocalDate[]{date1,date2});
             holder.add(new long[]{toUnix(date1),toUnix(date2)});
+        }
+        for(long[] arr : holder){
+            System.out.format("start : %d%n       end : %d%n", arr[0],arr[1]);
         }
         return holder;
     }
 
     private long toUnix(LocalDate date){ 
-        ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
+        System.out.println("toUnix");
+        ZoneId zoneId = ZoneId.systemDefault();
         long epoch = date.atStartOfDay(zoneId).toEpochSecond();
         return epoch;
     }
 
-    private void writeToCSV() throws IOException{
-        String line;
-        File tempFile = new File("FinnHubTest.csv");
-        FileWriter writer = new FileWriter(tempFile);
-        String headers = "time,open,high,low,close,volume";
-        Lines.set(0,headers);
-        Object[] lines = Lines.toArray();
-        for(Object a : lines){
-            line = (String)a;
-            //System.out.println(line);
-            if(!line.equals(headers)){
-                long unix = Long.parseLong(line.substring(0,line.indexOf(",")));
-                Date date = new Date ();
-                date.setTime((long)unix*1000);
-                if(line.contains("1609459260")) System.out.println(line);
-                line = date + line.substring(line.indexOf(","),line.length()); //Line used to change UNIX to date and time format on csv file
+    private void writeToCSV(){
+        ArrayList<String> LinesToWrite = new ArrayList<String>();
+        try{
+            System.out.println("writeToCSV");
+            String line;
+            File tempFile = new File("FinnHubTest.csv");
+            FileWriter writer = new FileWriter(tempFile);
+            String ogHeaders = "t,o,h,l,c,v";
+            String headers = "time,open,high,low,close,volume";
+            Lines.set(0,headers);
+            //Object[] lines = Lines.toArray();
+            for(Object a : Lines){
+                //System.out.println(a.toString());
+                line = a.toString();
+                if(line.equals(ogHeaders)) continue;
+                if(!line.equals(headers)){
+                    long unix = Long.parseLong(line.substring(0,line.indexOf(",")));
+                    Date date = new Date();
+                    date.setTime((long)unix*1000);
+                    line = date + line.substring(line.indexOf(","),line.length()); //Line used to change UNIX to date and time format on csv file
+                }
+                LinesToWrite.add(line);
             }
-            writer.write(line + "\n");
-        }
-        writer.close();
-
+            for(int i = 0; i < LinesToWrite.size()/2; i++){
+                writer.write(LinesToWrite.get(i)+"\n");
+            }
+            writer.close();
+        }catch(IOException e){System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in writeToCSV.FinnHub.java");}
     }
 }

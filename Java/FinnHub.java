@@ -20,21 +20,13 @@ public class FinnHub {
         start_end[1] = end;
         this.Ticker = Ticker;
         this.Interval = Interval;
-        betaRun();
+        Run();
     }
 
-    private void run() {
-        /*try{
-            long[] times = getDates();
-            System.out.println(times[0] + ", "+ times[1]);
-            urlConnect(times[0],times[1]);
-            writeToCSV();
-        } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in FinnHub.java");}*/
-    }
 
-    private void betaRun(){
+    private void Run(){
         try{
-            ArrayList<long[]> times = getDates();
+            ArrayList<long[]> times = getDates(); //TODO: Used for beta
             for(long[] time : times){
                 System.out.println(time[0] + ", "+ time[1]);
                 urlConnect(time[0],time[1]);
@@ -52,7 +44,6 @@ public class FinnHub {
             String line;
             ArrayList<String> temp = new ArrayList<String>();
             while((line = reader.readLine()) != null) {
-                //System.out.println(line);
                 if(Lines.contains(line)) continue;
                 temp.add(line);
                 Lines.add(line);
@@ -63,52 +54,62 @@ public class FinnHub {
     }
 
     private ArrayList<long[]> getDates(){
-        String a = start_end[0];
-        String b = start_end[1];
-        ArrayList<String> months = new ArrayList<String>(Arrays.asList(tempMonthArray));
         ArrayList<long[]> holder = new ArrayList<long[]>();
-        System.out.println("Created Lists");
-        //String[] start_end_months = new String[]{a.replaceAll("[0-9]", "").replaceAll(" ", ""), b.replaceAll("[0-9]", "").replaceAll(" ", "")};
-        if(a.equals(b)){ //If only one month is selected
-            int year = Integer.parseInt(a.substring(a.length()-4,a.length()));
-            System.out.println("One month is selected");
-            System.out.println(year);
-            int month = Integer.parseInt(a.substring(0,a.length()-3));
-            System.out.println("year : " + year + ", month : " + month);
-            YearMonth temp = YearMonth.of(year,month);
-            LocalDate date1 = LocalDate.of(year,month,1);
-            LocalDate date2 = LocalDate.of(year,month,temp.lengthOfMonth());
-            Dates.add(new LocalDate[]{date1,date2});
-            holder.add(new long[]{toUnix(date1),toUnix(date2)});
-            return holder;
-        }
+        try{
+            String a = start_end[0];
+            String b = start_end[1];
+            ArrayList<String> months = new ArrayList<String>(Arrays.asList(tempMonthArray));
+            System.out.println("Created Lists");
+            if(a.equals(b)){ //If only one month is selected
+                int year = Integer.parseInt(a.substring(a.length()-4,a.length()));
+                System.out.println("One month is selected");
+                System.out.println(year);
+                int month = Integer.parseInt(a.substring(0,a.length()-3));
+                System.out.println("year : " + year + ", month : " + month);
+                YearMonth temp = YearMonth.of(year,month);
+                LocalDate date1 = LocalDate.of(year,month,1);
+                LocalDate date2 = LocalDate.of(year,month,temp.lengthOfMonth());
+                Dates.add(new LocalDate[]{date1,date2});
+                holder.add(new long[]{toUnix(date1),toUnix(date2)});
+                return holder;
+            }
 
-        int year1 = Integer.parseInt(a.substring(a.length()-4,a.length()));
-        int year2 = Integer.parseInt(b.substring(b.length()-4,b.length()));
+            int year1 = Integer.parseInt(a.substring(a.length()-4,a.length()));
+            int year2 = Integer.parseInt(b.substring(b.length()-4,b.length()));
 
-        int month1 = months.indexOf(a.substring(0,a.length()-5));
-        int month2 = months.indexOf(b.substring(0,b.length()-5));
-        
-        int timesToRun;
-        if(year2 != year1) timesToRun = month2 + (13-month1);
-        else timesToRun = month2-month1;
+            int month1 = months.indexOf(a.substring(0,a.length()-5));
+            int month2 = months.indexOf(b.substring(0,b.length()-5));
+            
+            int timesToRun;
+            if(year2 != year1) timesToRun = month2 + (12-month1);
+            else timesToRun = month2-month1;
 
-        for(int i = 0; i <= timesToRun; i++){ //TO DO : Needs Work
-            if(month2-i == 0) month2 = 12;
-            LocalDate date1 = LocalDate.of(year1,month2-i,1);
-            YearMonth temp = YearMonth.of(year2,month2-i);
-            LocalDate date2 = LocalDate.of(year2,month2-i,temp.lengthOfMonth());
-            Dates.add(new LocalDate[]{date1,date2});
-            holder.add(new long[]{toUnix(date1),toUnix(date2)});
-        }
-        for(long[] arr : holder){
-            System.out.format("start : %d%n       end : %d%n", arr[0],arr[1]);
-        }
+            boolean isPreviousYear = false;
+            boolean hasChangedYear = false;
+            for(int i = 0; i <= timesToRun; i++){ //TODO : Needs Work
+                if(isPreviousYear & !hasChangedYear){
+                    month2 = 12+i;
+                    year2 = year1;
+                    isPreviousYear = true;
+                    hasChangedYear = true;
+                }
+                if(month2-i == 1){
+                    isPreviousYear = true;
+                }
+                LocalDate date1 = LocalDate.of(year2,month2-i,1);
+                YearMonth temp = YearMonth.of(year2,month2-i);
+                LocalDate date2 = LocalDate.of(year2,month2-i,temp.lengthOfMonth());
+                Dates.add(new LocalDate[]{date1,date2});
+                holder.add(new long[]{toUnix(date1),toUnix(date2)});
+            }
+            for(long[] arr : holder){
+                System.out.format("start : %d%n       end : %d%n", arr[0],arr[1]);
+            }
+        }   catch(Exception e) { System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in getDatesBeta.FinnHub.java");}
         return holder;
     }
 
     private long toUnix(LocalDate date){ 
-        System.out.println("toUnix");
         ZoneId zoneId = ZoneId.systemDefault();
         long epoch = date.atStartOfDay(zoneId).toEpochSecond();
         return epoch;
@@ -126,7 +127,6 @@ public class FinnHub {
             Lines.set(0,headers);
             //Object[] lines = Lines.toArray();
             for(Object a : Lines){
-                //System.out.println(a.toString());
                 line = a.toString();
                 if(line.equals(ogHeaders)) continue;
                 if(!line.equals(headers)){

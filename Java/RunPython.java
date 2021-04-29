@@ -11,6 +11,8 @@ public class RunPython {
 
     public static void main(String[] args) {
         System.out.println("This method has no contents");
+        Run(1);
+        System.out.println(Output[1]);
     }
 
     public static void Run(int index) {

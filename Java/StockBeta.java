@@ -5,6 +5,7 @@ import java.util.*;
 public class StockBeta {
 
     protected ArrayList<String[]> RawData = new ArrayList<>();
+    protected ArrayList<String[]> ParsedData = new ArrayList<>();
     protected ArrayList<String[]> DayData = new ArrayList<>();
     protected ArrayList<ArrayList<String[]>> WeekData = new ArrayList<>(); //Day,Data Select
     protected String Interval;
@@ -16,6 +17,8 @@ public class StockBeta {
     protected double LatestOpeningPrice;
     protected double SevenDayOpeningPrice;
     protected boolean isRange = false;
+
+    private FinnHub finnhub;
 
     public StockBeta(String Ticker, String Interval, String Slice, boolean forSMVI) throws IOException {
         this.Ticker = Ticker;
@@ -52,6 +55,7 @@ public class StockBeta {
     }
 
     private ArrayList<String[]> parseToArray(ArrayList<String> a){
+        System.out.println("Parsing to Array");
         ArrayList<String[]> temp = new ArrayList<String[]>();
         for(String s : a){
             temp.add(s.split(","));
@@ -60,10 +64,11 @@ public class StockBeta {
     }
 
     private void getHistory(){
-        FinnHub finnhub = new FinnHub(StartSlice,EndSlice,Ticker,Interval,forSMVI);
+        finnhub = new FinnHub(StartSlice,EndSlice,Ticker,Interval,forSMVI);
         System.out.println("getHistory(): Created FinnHub Instance for " + Ticker);
         RawData = parseToArray(finnhub.RawData);
         System.out.println("getHistory(): Created RawData");
+        ParsedData = parseToArray(finnhub.ParsedData);
         DayData = getDayData();
         System.out.println("getHistory(): Created DayData");
         WeekData = GetWeekData();
@@ -92,52 +97,60 @@ public class StockBeta {
         return DailyData;
     }
 
+    /**
+     *
+     * @param Date in the format of "Thu Apr 01 14:45:00 BST"
+     * @return
+     */
     private ArrayList<String[]> getDayData(String Date){
+        if(Date.contains(":")) Date = Date.substring(0,Date.indexOf(":")-3);
         ArrayList<String[]> DayData = new ArrayList<String[]>();
         int start = -1;
         int end = -1;
-        boolean searchForEnd = false;
-        for(int i = 1; i < RawData.size(); i++){
-            if(RawData.get(i)[0].contains(Date)){
-                if(!searchForEnd){
-                    start = i;
-                    searchForEnd = true;
-                }
-                else end = i;
+        ArrayList<String> time = finnhub.Time;
+        for(int i = 1; i < time.size(); i++){
+            if(time.get(i).contains(Date)){
+                start = i;
+                break;
             }
-            else break;
+        }
+        for(int i = start; i < time.size(); i++){
+            if(!time.get(i).contains(Date)){
+                end = i;
+                break;
+            }
         }
         System.out.println("start: " + start);
         System.out.println("end: " + end);
         for(int f = start; f <= end; f++){
-            DayData.add(RawData.get(f));
+            DayData.add(ParsedData.get(f));
         }
         return DayData;
     }
 
     private ArrayList<ArrayList<String[]>> GetWeekData(){
-        ArrayList<ArrayList<String[]>> WeekData = new ArrayList<>();
-        String[] Week = new String[7];
-        Week[0] = RawData.get(1)[0];
-        int Index = 1;
-        for(int i = 2; i < RawData.size(); i++){
-            if(Index > 6) break;
-            if(RawData.get(i)[0].length() != 20) continue;
-            if(!RawData.get(i)[0].substring(0,RawData.get(i)[0].indexOf(":")-3).equals(Week[Index-1].substring(0,Week[Index-1].indexOf(":")-3))){
-                Week[Index] = RawData.get(i)[0];
-                Index++;
-                System.out.println("\tFound Needed Info");
+        try {
+            ArrayList<ArrayList<String[]>> weekData = new ArrayList<>();
+            String[] days = new String[7];
+            ArrayList<String> time = finnhub.Time;
+            days[0] = time.get(1);
+            int index = 1;
+            for (int i = 2; i < time.size(); i++) {
+                if(index == 7) break;
+                if (time.get(i).equals(days[index - 1])) {
+                    continue;
+                } else {
+                    days[index] = time.get(i);
+                    index++;
+                }
             }
-        }
-        System.out.println("\tFinished Loop, Starting to add dates");
-        for(String date : Week){
-            WeekData.add(getDayData(date));
-        }
-        System.out.println("\tFinished Adding Dates");
-        return WeekData;
+            for (String day : days) {
+                weekData.add(getDayData(day));
+            }
+            return weekData;
+        }catch(Exception e){ System.out.println(e);}
+        return new ArrayList<ArrayList<String[]>>();
     }
-
-
     private double getSevenDayOpeningPrice(){ return Double.parseDouble(WeekData.get(6).get(WeekData.get(6).size()-1)[1]);}
 
     /**

@@ -50,7 +50,6 @@ public class FinnHub {
         try{
             ArrayList<long[]> times = getDates();
             for(long[] time : times){
-                System.out.println(time[0] + ", "+ time[1]);
                 urlConnect(time[0],time[1]);
             }
             writeToCSV();
@@ -68,11 +67,11 @@ public class FinnHub {
             ArrayList<String> temp = new ArrayList<String>();
             while((line = reader.readLine()) != null) {
                 if(RawData.contains(line)) continue;
-                temp.add(line);
+                //temp.add(line);
                 RawData.add(line);
             }
-            temp.addAll(RawData);
-            RawData = temp;
+            //temp.addAll(RawData);
+            //RawData = temp;
         } catch(Exception e){ System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in urlConnect.FinnHub.java");}
     }
 
@@ -168,11 +167,44 @@ public class FinnHub {
                 RawData.set(i,line);
                 LinesToWrite.add(line);
             }
-            for(int i = 0; i < LinesToWrite.size()/2; i++){
+
+            Collections.reverse(LinesToWrite);
+            ArrayList<ArrayList<String>> allMonths = new ArrayList<>();
+            ArrayList<String> month = new ArrayList<>();
+            String currentMonth = "Mar";
+            for(int i = 0; i < LinesToWrite.size(); i++){
+                if(i == LinesToWrite.size()-1){
+                    Collections.reverse(month);
+                    allMonths.add(month);
+                    month = new ArrayList<>();
+                    currentMonth = LinesToWrite.get(i).substring(4,8);
+                    //System.out.println(currentMonth);
+                    month.add(LinesToWrite.get(i));
+                    break;
+                }
+                if(LinesToWrite.get(i).contains(currentMonth)){
+                    month.add(LinesToWrite.get(i));
+                }else{
+                    Collections.reverse(month);
+                    allMonths.add(month);
+                    month = new ArrayList<>();
+                    currentMonth = LinesToWrite.get(i).substring(4,8);
+                    month.add(LinesToWrite.get(i));
+                }
+            }
+            LinesToWrite.clear();
+            ArrayList<String> temp = new ArrayList<>();
+            for(ArrayList<String> a : allMonths){
+                temp.addAll(a);
+            }
+            LinesToWrite = temp;
+            LinesToWrite.add(0,"time,open,high,low,close,volume");
+            System.out.println("LinesToWrite.size() :" + LinesToWrite.size());
+            for(int i = 0; i < LinesToWrite.size(); i++){
                 writer.write(LinesToWrite.get(i)+"\n");
-                ParsedData.add(LinesToWrite.get(i));
             }
             writer.close();
+            ParsedData.addAll(LinesToWrite);
         }catch(IOException e){System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in writeToCSV.FinnHub.java");}
     }
 
@@ -192,6 +224,5 @@ public class FinnHub {
             Volume.add(Double.parseDouble(raw[5]));
         }
         System.out.println("Finished ArrayLists");
-
     }
 }

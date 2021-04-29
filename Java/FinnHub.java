@@ -9,6 +9,8 @@ public class FinnHub {
     private String Interval;
     private String Ticker;
     private String Format = "csv";
+    protected int numDays = 0;
+    private boolean forSMVI;
 
 
     protected ArrayList<String> RawData = new ArrayList<String>();
@@ -34,11 +36,12 @@ public class FinnHub {
      * @param Ticker    The ticker of the stock, e.g. AAPL
      * @param Interval  The interval for the data gathering in minutes, e.g. 15
      */
-    FinnHub(String start, String end, String Ticker, String Interval){
+    FinnHub(String start, String end, String Ticker, String Interval, boolean forSMVI ){
         start_end[0] = start;
         start_end[1] = end;
-        this.Ticker = Ticker;
+        this.Ticker = Ticker.toUpperCase();
         this.Interval = Interval;
+        this.forSMVI = forSMVI;
         Run();
     }
 
@@ -84,12 +87,13 @@ public class FinnHub {
             if(a.equals(b)){
                 int year = Integer.parseInt(a.substring(a.length()-4,a.length()));
                 System.out.println("One month is selected");
-                System.out.println(year);
-                int month = Integer.parseInt(a.substring(0,a.length()-3));
+                System.out.println("line 90 of FinnHub.java");
+                int month = months.indexOf(a.substring(0,a.length()-5));
                 System.out.println("year : " + year + ", month : " + month);
                 YearMonth temp = YearMonth.of(year,month);
                 LocalDate date1 = LocalDate.of(year,month,1);
                 LocalDate date2 = LocalDate.of(year,month,temp.lengthOfMonth());
+                numDays += temp.lengthOfMonth();
                 Dates.add(new LocalDate[]{date1,date2});
                 holder.add(new long[]{toUnix(date1),toUnix(date2)});
                 return holder;
@@ -126,7 +130,7 @@ public class FinnHub {
             for(long[] arr : holder){
                 System.out.format("start : %d%n       end : %d%n", arr[0],arr[1]);
             }
-        }   catch(Exception e) { System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in getDatesBeta.FinnHub.java");}
+        }   catch(Exception e) { System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in getDates.FinnHub.java");}
         return holder;
     }
 
@@ -140,16 +144,19 @@ public class FinnHub {
      */
     private void writeToCSV(){
         ArrayList<String> LinesToWrite = new ArrayList<String>();
+        String csvPath;
+        if(forSMVI) csvPath = "Data//DIA_Data.csv";
+        else csvPath = "Data//Data.csv";
         try{
             System.out.println("writeToCSV");
             String line;
-            File tempFile = new File("FinnHubTest.csv");
+            File tempFile = new File(csvPath);
             FileWriter writer = new FileWriter(tempFile);
             String ogHeaders = "t,o,h,l,c,v";
             String headers = "time,open,high,low,close,volume";
             RawData.set(0,headers);
-            for(Object a : RawData){
-                line = a.toString();
+            for(int i = 1; i < RawData.size(); i++){
+                line = RawData.get(i);
                 if(line.equals(ogHeaders)) continue;
                 if(!line.equals(headers)){
                     long unix = Long.parseLong(line.substring(0,line.indexOf(",")));
@@ -158,6 +165,7 @@ public class FinnHub {
                     /* Comment the line below to change the date formatting to UNIX */
                     line = date + line.substring(line.indexOf(","),line.length());
                 }
+                RawData.set(i,line);
                 LinesToWrite.add(line);
             }
             for(int i = 0; i < LinesToWrite.size()/2; i++){
@@ -172,6 +180,7 @@ public class FinnHub {
      * Uses parsed data and adds that data to individual protected ArrayLists for access from other classes
      */
     private void makeArrayLists(){
+        System.out.println("Making ArrayLists");
         for(String s : ParsedData){
             if(s.contains("w")) continue;
             String[] raw = s.split(",");
@@ -182,5 +191,7 @@ public class FinnHub {
             Close.add(Double.parseDouble(raw[4]));
             Volume.add(Double.parseDouble(raw[5]));
         }
+        System.out.println("Finished ArrayLists");
+
     }
 }

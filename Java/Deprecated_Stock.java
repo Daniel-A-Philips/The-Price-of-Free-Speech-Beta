@@ -8,7 +8,7 @@ import java.util.*;
         Alpha Vantage: https://www.alphavantage.co/documentation/
  */
 
-public class Stock {
+public class Deprecated_Stock {
 
     protected ArrayList<String[]> RawData = new ArrayList<>();
     protected ArrayList<String[]> DayData = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Stock {
     protected double SevenDayOpeningPrice;
     protected boolean isRange = false;
 
-    public Stock(String Ticker, String Interval, String Slice, boolean forSMVI) throws IOException {
+    public Deprecated_Stock(String Ticker, String Interval, String Slice, boolean forSMVI) throws IOException {
         this.Ticker = Ticker;
         this.Interval = Interval;
         //this.Slice = Slice;
@@ -36,7 +36,7 @@ public class Stock {
         run();
     }
 
-    public Stock(String Ticker, String Interval, String StartSlice, String EndSlice, boolean forSMVI) throws IOException {
+    public Deprecated_Stock(String Ticker, String Interval, String StartSlice, String EndSlice, boolean forSMVI) throws IOException {
         this.Ticker = Ticker;
         this.Interval = Interval;
         this.StartSlice = StartSlice;
@@ -49,7 +49,7 @@ public class Stock {
     /**
      * Used to test the Stock class
      */
-    public Stock() throws IOException{
+    public Deprecated_Stock() throws IOException{
         Interval = "5";
         Ticker = "IBM";
         Slice = "year1month1";
@@ -144,10 +144,6 @@ public class Stock {
             System.out.println("sevendayopening");
             SevenDayOpeningPrice = getSevenDayOpeningPrice();
         }catch(Exception e){System.out.println(e + "\non line number " + e.getStackTrace()[0].getLineNumber());}
-    }
-
-    private void getHistory(boolean a){
-        FinnHub finnhub = new FinnHub(StartSlice,EndSlice,Ticker,Interval);
     }
 
 

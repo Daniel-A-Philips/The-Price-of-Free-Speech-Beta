@@ -27,14 +27,13 @@ public class RunPython {
             Process process = processBuilder.start();
             output = (process.getInputStream());
         } catch (IOException e) {
-            System.out.println(e);
             try{
                 ProcessBuilder processBuilder = new ProcessBuilder("python3", fileName);
                 processBuilder.redirectErrorStream(true);
                 Process process = processBuilder.start();
                 output = (process.getInputStream());
             }catch(IOException ee){
-                System.out.println(ee);
+                System.out.println("Error when running python files" + "\n");
             }
         }
         try (Scanner scanner = new Scanner(output, StandardCharsets.UTF_8.name())) {

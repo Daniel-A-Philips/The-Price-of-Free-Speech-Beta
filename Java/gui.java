@@ -20,6 +20,7 @@ class gui {
     private static Interaction STOCK;
     private static Interaction DIA;
     private static int timeRange;
+    private static ArrayList<String> StringSlices = new ArrayList<String>();
     public static ArrayList<String> Months = new ArrayList<>();
     public static String absPath = Paths.get("PathTest.java").toAbsolutePath().toString().substring(0,Paths.get("PathTest.java").toAbsolutePath().toString().lastIndexOf("/"))+"/Data/";
 
@@ -47,15 +48,17 @@ class gui {
                 try {
                     String ticker = ((JTextField)Text.get(0)).getText();
                     int IntervalInt = IntervalDropdown.getSelectedIndex();
-                    int SliceInt = SliceDropdown.getSelectedIndex();
+                    String SliceStart = SliceDropdown.getSelectedItem().toString();
+                    String SliceEnd = SliceStart; //Change to the second option in the range
                     String handles = ((JTextField)Text.get(2)).getText();
-                    STOCK = new Interaction(ticker,IntervalInt,SliceInt,handles,false);
-                    DIA = new Interaction("DIA",IntervalInt,SliceInt,handles,true);
+                    STOCK = new Interaction(ticker,IntervalInt,SliceStart,SliceEnd,handles,false);
+                    DIA = new Interaction("DIA",IntervalInt,SliceStart,SliceEnd,handles,true);
                     writeDate();
                     STOCK.run();
                     DIA.run();
                     writeSMVI();
                 } catch (IOException ex) {
+                    System.out.println("Error in gui.main()");
                     ex.printStackTrace();
                 }
             }
@@ -112,7 +115,9 @@ class gui {
             fileWriter.write(EndInput);
             fileWriter.close();
             printWriter.close();
-        }catch(Exception e){System.err.println(e);}
+        }catch(Exception e){
+            System.out.println("Error in gui.writeDate()");
+            System.err.println(e);}
     }
 
     private static void createLabels(){
@@ -193,7 +198,8 @@ class gui {
             writer.close();
             RunPython.Run(2);
             WriteText("Social Media Volatility Index: " + RunPython.getOutput(2));
-        }catch(Exception e){System.out.println("Error in \"writeSMVI\"\n"+ e + "\n" + "Error on line number " + e.getStackTrace()[0].getLineNumber());}
+        }catch(Exception e){
+            System.out.println("Error in \"writeSMVI\"\n"+ e + "\n" + "Error on line number " + e.getStackTrace()[0].getLineNumber());}
     }
 
     private static void getDaysInTimeRange(Date Start, Date End){

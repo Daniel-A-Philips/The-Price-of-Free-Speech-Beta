@@ -135,7 +135,9 @@ public class FinnHub {
         long epoch = date.atStartOfDay(zoneId).toEpochSecond();
         return epoch;
     }
-
+    /**
+     * Uses the data collected and stored in 'RawData' to format and write to the csv file
+     */
     private void writeToCSV(){
         ArrayList<String> LinesToWrite = new ArrayList<String>();
         try{
@@ -166,6 +168,9 @@ public class FinnHub {
         }catch(IOException e){System.out.println(e + " occured on line " + e.getStackTrace()[0].getLineNumber() + " in writeToCSV.FinnHub.java");}
     }
 
+    /**
+     * Uses parsed data and adds that data to individual protected ArrayLists for access from other classes
+     */
     private void makeArrayLists(){
         for(String s : ParsedData){
             if(s.contains("w")) continue;

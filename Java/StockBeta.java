@@ -103,19 +103,26 @@ public class StockBeta {
      * @return
      */
     private ArrayList<String[]> getDayData(String Date){
+        System.out.println("Date Before: " + Date);
         if(Date.contains(":")) Date = Date.substring(0,Date.indexOf(":")-3);
+        System.out.println("Date After: " + Date);
         ArrayList<String[]> DayData = new ArrayList<String[]>();
         int start = -1;
         int end = -1;
         ArrayList<String> time = finnhub.Time;
         for(int i = 1; i < time.size(); i++){
-            if(time.get(i).contains(Date)){
+            String dateCheck  = time.get(i).substring(0,time.get(i).indexOf(":")-3);
+            System.out.println("dateCheck.get(i): "+ dateCheck);
+            if(dateCheck.equals(Date)){
+                System.out.println("Found start");
                 start = i;
                 break;
             }
         }
-        for(int i = start; i < time.size(); i++){
-            if(!time.get(i).contains(Date)){
+        for(int i = time.size()-1; i > start; i--){
+            String dateCheck = time.get(i).substring(0,time.get(i).indexOf(":")-3);
+            if(dateCheck.equals(Date)){
+                System.out.println("Found end");
                 end = i;
                 break;
             }

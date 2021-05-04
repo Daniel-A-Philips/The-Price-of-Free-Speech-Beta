@@ -1,17 +1,6 @@
 import os
 import PySimpleGUI as sg
 
-def newWindow(values):
-    #layout = [
-     #   [sg.Text("SMVI:",values['SMVI'])],
-    #]
-
-    window = sg.Window("Results",layout)
-    while True:
-        event,values = window.read()
-        if event == sg.WIN_CLOSED:
-            return
-
 Intervals = [1, 5, 15, 30, 60, 'Day', 'Week', 'Month']
 
 layout = [
